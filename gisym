@@ -16,7 +16,7 @@ check-symlink() {
 
     if [[ "$CURRENT_TARGET" != "$TARGET" ]]; then
         if [[ -e $SOURCE && ! -L $SOURCE ]]; then
-            if [[ -f "$SOURCE" ]] && cmp "$SOURCE" "$TARGET"; then
+            if [[ -f "$SOURCE" ]] && cmp --silent "$SOURCE" "$TARGET"; then
                 echo "WARNING! Source file $SOURCE is identical to $TARGET; removing $SOURCE."
                 rm "$SOURCE"
             else
