@@ -28,9 +28,16 @@ check-symlink() {
         echo "Symlink $SOURCE does not exist or does not point to $TARGET, making link."
         rm -fv "$SOURCE"
         ONE_DIRNAME=$(dirname "$SOURCE")
-        RELATIVE_TARGET=$(realpath --relative-to="$ONE_DIRNAME" "$TARGET")
+
+        realpath --relative-to=/tmp /tmp 2>&1 | grep 'unrecognized option' > /dev/null
+        if [[ $? -eq 0 ]]; then
+            TARGET_TO_USE=$(realpath "$TARGET")
+        else
+            TARGET_TO_USE=$(realpath --relative-to="$ONE_DIRNAME" "$TARGET")
+        fi
+
         mkdir -pv "$ONE_DIRNAME"
-        (cd "$ONE_DIRNAME" && ln -sv "$RELATIVE_TARGET" "$SOURCE")
+        (cd "$ONE_DIRNAME" && ln -sv "$TARGET_TO_USE" "$SOURCE")
     fi
 }
 
