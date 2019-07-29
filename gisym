@@ -29,8 +29,8 @@ check-symlink() {
         rm -fv "$SOURCE"
         ONE_DIRNAME=$(dirname "$SOURCE")
 
-        realpath --relative-to=/tmp /tmp 2>&1 | grep 'unrecognized option' > /dev/null
-        if [[ $? -eq 0 ]]; then
+        realpath --relative-to=/tmp /tmp 2>&1 | grep --quiet 'unrecognized option'
+        if [[ $? -ne 0 ]]; then
             TARGET_TO_USE=$(realpath "$TARGET")
         else
             TARGET_TO_USE=$(realpath --relative-to="$ONE_DIRNAME" "$TARGET")
