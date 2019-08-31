@@ -16,6 +16,11 @@ check-symlink() {
     SOURCE=$1
     TARGET=$2
 
+    if [[ ! -e "$TARGET" ]]; then
+        echo "ERROR! Target $TARGET does not exist."
+        exit 1
+    fi
+
     CURRENT_TARGET=$($READLINK -f "$SOURCE") || true
 
     if [[ "$CURRENT_TARGET" != "$TARGET" ]]; then
