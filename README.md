@@ -1,5 +1,7 @@
 # gisym
 
+*Note:* I no longer use and maintain this repository. For personal use, I've replaced it with some custom wrappers around [GNU Stow](https://www.gnu.org/software/stow/).
+
 A simple set of bash functions to canonically (re)create symlinks. This is useful, for example, to keep your dotfiles in a shared git repo, and create symlinks to files in or directories in there from your home directory. Functions available are:
 
 * `check-symlink $SOURCE $TARGET` - will create a symlink from `$SOURCE` to `$TARGET`, if the `$SOURCE` file is not already present. If it is and it is a symlink, it'll be deleted and recreated to point to `$TARGET`, use appropriate relative paths for succinctness. If it exists but is not a symlink, the function will error and exit to avoid losing data.
